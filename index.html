@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конструктор писем</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lab+Grotesque:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .panel-content {
+            display: none;
+            padding: 10px;
+        }
+        
+        .panel-content.active {
+            display: block;
+        }
+
+        /* Стили для раскрывающегося меню */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-btn:hover {
+            background-color: var(--button-hover);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--panel-bg);
+            min-width: 100%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .dropdown-content button {
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content button:hover {
+            background-color: var(--button-hover);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .left-block-content {
+    </style>
+</head>
+<body>
+    <div class="top-controls">
+        <img src="logo.png" alt="Контур.Диадок" class="logo" onclick="showPanel('diadok')">
+        <img src="marking-logo.png" alt="Контур.Маркировка" class="logo" onclick="showPanel('marking')">
+        <img src="extern-logo.png" alt="Контур.Экстерн" class="logo" onclick="showPanel('extern')">
+    </div>
+    <div class="container">
+        <div class="left-block" id="diadok-panel">
+            <div class="left-block-content">
+                <details>
+                    <summary>Приветствие</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Диадок_Приветствие_Продление')">Продление</button>
+                        <button onclick="addContent('Диадок_Приветствие_Подключение')">Подключение</button>
+                    </div>
+                </details>
+                <button onclick="addContent('Диадок_Преимущества_решения')">Преимущества решения</button>
+                <details>
+                    <summary>Преимущества для ЛПР</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Диадок_Преимущества_бухгалтеру')">Что дает электронный документооборот бухгалтеру</button>
+                        <button onclick="addContent('Диадок_Преимущества_директору')">Что дает электронный документооборот директору</button>
+                        <button onclick="addContent('Диадок_Преимущества_it')">Что дает электронный документооборот IT-директору</button>
+                    </div>
+                </details>
+                <button onclick="addContent('Диадок_Включено_на_всех_тарифах')">Включено на всех тарифах</button>
+                <details>
+                    <summary>Тарифы</summary>
+                    <button onclick="addContent('Диадок_Тариф_250')">250 исходящих на 1 год (2 640 ₽)</button>
+                    <button onclick="addContent('Диадок_Тариф_600')">600 исходящих на 1 год (5 640 ₽)</button>
+                    <button onclick="addContent('Диадок_Тариф_1200')">1200 исходящих на 1 год (10 350 ₽)</button>
+                    <button onclick="addContent('Диадок_Тариф_3000')">3000 исходящих на 1 год (24 840 ₽)</button>
+                </details>
+                <details>
+                    <summary>Модуль для 1С</summary>
+                    <button onclick="addContent('Диадок_Модуль_для_1С_Стартовый')">Стартовый</button>
+                    <button onclick="addContent('Диадок_Модуль_для_1С_Универсальный')">Универсальный</button>
+                </details>
+                <button onclick="addContent('Диадок_Настройка_и_обучение')">Настройка и обучение</button>
+                <details>
+                    <summary>Диадок.Коннектор</summary>
+                    <button onclick="addContent('Диадок_Коннектор_Доставка')">Коннектор.Доставка</button>
+                    <button onclick="addContent('Диадок_Коннектор_Выгрузка')">Коннектор.Выгрузка</button>
+                    <button onclick="addContent('Диадок_Коннектор_Бизнес_процесс')">Коннектор.Бизнес-процесс</button>
+                </details>
+                <button onclick="addContent('Диадок_API_Диадока')">API Диадока</button>
+                <button onclick="addContent('Диадок_Маркировка')">Маркировка в ЭДО</button>
+                <details>
+                    <summary>Для оптовиков</summary>
+                    <button onclick="addContent('Диадок_Для_оптовиков_Спецпредложение')">Спецпредложение для новых клиентов</button>
+                    <button onclick="addContent('Диадок_Для_оптовиков_Наполнение_кодами')">Сервис «Наполнение кодами УПД»</button>
+                    <button onclick="addContent('Диадок_Для_оптовиков_Честный_ЗНАК')">Сервис для передачи в Честный ЗНАК</button>
+                    <button onclick="addContent('Диадок_Для_оптовиков_Наполнение_и_Честный_ЗНАК')">Наполнение УПД и Честный ЗНАК</button>
+                </details>
+                <details>
+                    <summary>Для розницы</summary>
+                    <button onclick="addContent('Диадок_Для_розницы_Честный_ЗНАК')">Сервис для передачи в Честный ЗНАК</button>
+                    <button onclick="addContent('Диадок_Для_розницы_Передача_данных')">Передача данных оператору</button>
+                    <button onclick="addContent('Диадок_Для_розницы_Спецпредложение')">Спецпредложение «Все госсистемы»</button>
+                </details>
+                <details>
+                    <summary>Для производителей</summary>
+                    <button onclick="addContent('Диадок_Для_производителей_Пакет_исходящих')">Пакет исходящих документов</button>
+                    <button onclick="addContent('Диадок_Для_производителей_ЭДО_в_1С')">ЭДО в 1С</button>
+                    <button onclick="addContent('Диадок_Для_производителей_Статус_передачи')">Статус передачи данных</button>
+                    <button onclick="addContent('Диадок_Для_производителей_Веб_сервис')">Веб-сервис Контур.Маркировка</button>
+                    <button onclick="addContent('Диадок_Для_производителей_Оборудование')">Интеграция с оборудованием</button>
+                    <button onclick="addContent('Диадок_Для_производителей_Маркетплейсы')">ЭДО с маркетплейсами</button>
+                    <button onclick="addContent('Диадок_Для_производителей_Маршруты')">Маршруты согласования</button>
+                </details>
+                <details>
+                    <summary>Завершение</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Диадок_Завершение_Продление')">Продление</button>
+                        <button onclick="addContent('Диадок_Завершение_Подключение')">Подключение</button>
+                    </div>
+                </details>
+            </div>
+        </div>
+        <div class="left-block" id="marking-panel" style="display: none;">
+            <div class="left-block-content">
+                <details>
+                    <summary>Приветствие</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Маркировка_Приветствие_Продление')">Продление</button>
+                        <button onclick="addContent('Маркировка_Приветствие_Подключение')">Подключение</button>
+                    </div>
+                </details>
+                <button onclick="addContent('Маркировка_Автозаказ_кодов')">Автозаказ кодов</button>
+                <button onclick="addContent('Маркировка_Консалтинг')">Консалтинг</button>
+                <button onclick="addContent('Маркировка_Автоподбор_позиции')">Автоподбор позиции</button>
+                <button onclick="addContent('Маркировка_Телеграм_бот')">Телеграм-бот</button>
+                <details>
+                    <summary>Завершение</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Маркировка_Завершение_Продление')">Продление</button>
+                        <button onclick="addContent('Маркировка_Завершение_Подключение')">Подключение</button>
+                    </div>
+                </details>
+                <button onclick="addContent('Маркировка_Общее_описание')">Общее описание</button>
+                <button onclick="addContent('Маркировка_Контур_Маркировка')">Контур.Маркировка</button>
+                <button onclick="addContent('Маркировка_Кому_подходит_сервис')">Кому подходит сервис</button>
+                <button onclick="addContent('Маркировка_Веб_версия')">Веб-версия</button>
+                <button onclick="addContent('Маркировка_Преимущества_решения_от_Контура')">Преимущества решения</button>
+                <button onclick="addContent('Маркировка_Шаблон_этикеток')">Шаблон этикеток</button>
+                <button onclick="addContent('Маркировка_Инструктаж')">Инструктаж</button>
+                <button onclick="addContent('Маркировка_Неснижаемый_остаток')">Неснижаемый остаток</button>
+                <button onclick="addContent('Маркировка_Регламентные_задания')">Регламентные задания</button>
+                <button onclick="addContent('Маркировка_Загрузка_выгрузка_файлов')">Загрузка/выгрузка файлов</button>
+                <button onclick="addContent('Маркировка_Групповая_обработка_документов')">Групповая обработка</button>
+                <button onclick="addContent('Маркировка_Модификатор_оборудование')">Модификатор оборудование</button>
+                <button onclick="addContent('Маркировка_Сопровождение_модуля_1С')">Сопровождение модуля 1С</button>
+                <button onclick="addContent('Маркировка_Коннекторы')">Коннекторы</button>
+                <button onclick="addContent('Маркировка_Мобильное_приложение')">Мобильное приложение</button>
+                <button onclick="addContent('Маркировка_АРМ_Фасовщика')">АРМ Фасовщика</button>
+                <button onclick="addContent('Маркировка_АРМ_агрегации')">АРМ агрегации</button>
+                <details>
+                    <summary>Тариф/Модификатор</summary>
+                    <button onclick="addContent('Маркировка_Тариф_Базовый')">Базовый</button>
+                    <button onclick="addContent('Маркировка_Тариф_Оптимальный')">Оптимальный</button>
+                    <button onclick="addContent('Маркировка_Тариф_Премиум')">Премиум</button>
+                </details>
+                <details>
+                    <summary>Модуль 1С</summary>
+                    <button onclick="addContent('Маркировка_Модуль_1С_Преимущества')">Преимущества</button>
+                    <button onclick="addContent('Маркировка_Модуль_1С')">Модуль 1С</button>
+                    <button onclick="addContent('Маркировка_Рабочий_стол_в_модуле_1С')">Рабочий стол в модуле 1С</button>
+                </details>
+            </div>
+        </div>
+        <div class="left-block" id="extern-panel" style="display: none;">
+            <div class="left-block-content">
+                <details>
+                    <summary>Приветствие</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Экстерн_Приветствие_Продление')">Продление</button>
+                        <button onclick="addContent('Экстерн_Приветствие_Подключение')">Подключение</button>
+                    </div>
+                </details>
+                <button onclick="addContent('Экстерн_Стоимость')">Стоимость</button>
+                <button onclick="addContent('Экстерн_Преимущества_решения_от_Контура')">Преимущества решения от Контура</button>
+                <details>
+                    <summary>Тариф</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Экстерн_Стартовый')">Стартовый</button>
+                        <button onclick="addContent('Экстерн_Универсальный')">Универсальный</button>
+                        <button onclick="addContent('Экстерн_Оптимальный_Плюс')">Оптимальный Плюс</button>
+                        <button onclick="addContent('Экстерн_Максимальный')">Максимальный</button>
+                        <button onclick="addContent('Экстерн_Учетный')">Учетный</button>
+                        <button onclick="addContent('Экстерн_Общий_1_4')">Общий 1+4</button>
+                        <button onclick="addContent('Экстерн_Общий_1_9')">Общий 1+9</button>
+                        <button onclick="addContent('Экстерн_Общий_Плюс_1_4')">Общий Плюс 1+4</button>
+                        <button onclick="addContent('Экстерн_Общий_Плюс_1_9')">Общий Плюс 1+9</button>
+                        <button onclick="addContent('Экстерн_Нулевая_отчетность')">Нулевая отчетность</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Модификаторы</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Экстерн_Документооборот_с_МВД')">Документооборот с МВД</button>
+                        <button onclick="addContent('Экстерн_НДС_Плюс')">НДС+</button>
+                        <button onclick="addContent('Экстерн_Диадок')">Диадок</button>
+                        <button onclick="addContent('Экстерн_Светофор')">Светофор</button>
+                        <button onclick="addContent('Экстерн_Зарплата')">Зарплата</button>
+                        <button onclick="addContent('Экстерн_Бухгалтерский_учет_и_кадры')">Бухгалтерский учет и кадры</button>
+                        <button onclick="addContent('Экстерн_Дополнительный_пользователь_Стандартный')">Дополнительный пользователь "Стандартный"</button>
+                        <button onclick="addContent('Экстерн_Дополнительный_пользователь_Базовый')">Дополнительный пользователь "Базовый"</button>
+                        <button onclick="addContent('Экстерн_Групповая_работа')">Групповая работа</button>
+                        <button onclick="addContent('Экстерн_Разграничение_прав_доступа')">Разграничение прав доступа</button>
+                        <button onclick="addContent('Экстерн_Росалкогольрегулирование')">Росалкогольрегулирование</button>
+                        <button onclick="addContent('Экстерн_Росприроднадзор')">Росприроднадзор</button>
+                        <button onclick="addContent('Экстерн_Таблица_требований')">Таблица требований</button>
+                        <button onclick="addContent('Экстерн_Пакет_форм_отчетности')">Пакет форм отчетности</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Завершение</summary>
+                    <div class="panel-content active">
+                        <button onclick="addContent('Экстерн_Завершение_Продление')">Продление</button>
+                        <button onclick="addContent('Экстерн_Завершение_Подключение')">Подключение</button>
+                    </div>
+                </details>
+                <details>
+                    <summary>Спец. условия</summary>
+                    <button onclick="addContent('Экстерн_Спец_Реферальная')">Реферальная программа</button>
+                    <button onclick="addContent('Экстерн_Спец_Квартал')">Квартал в подарок</button>
+                    <button onclick="addContent('Экстерн_Спец_Бонус')">Контур.Бонус</button>
+                </details>
+            </div>
+        </div>
+        <div class="right-block">
+            <div class="right-block-content">
+                <div class="preview-content" id="preview" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
+    <div class="controls">
+        <button onclick="clearPreview()">Очистить</button>
+        <button onclick="copyToClipboard()">Копировать</button>
+        <button onclick="undoLastAction()">Отменить</button>
+    </div>
+    <script src="templates.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

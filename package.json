@@ -1,0 +1,14 @@
+{
+    "name": "letter-constructor",
+    "version": "1.0.0",
+    "description": "Letter constructor for Kontur services",
+    "main": "index.html",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "vite": "^5.0.0"
+    }
+  }
